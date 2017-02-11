@@ -1,4 +1,7 @@
-class Ship():
+class Ship(object):
+    """
+    Ship description.
+    """
     def __init__(self, coordinates, length):
         self.bow = coordinates
         if length[0] != 1:
@@ -9,11 +12,19 @@ class Ship():
         self.hit = [False for i in range(max(length))]
 
     def shoot_at(self, coordinates):
-        '''if coordinates[0] in range(self.bow, self.bow + self.length[0]) and \
-           coordinates[1] in range(self.bow, self.bow + self.length[1]):'''
+        """
+        tuple(int, int) -> None
+
+        Makes ship hitted in the given coordinates.
+        """
         self.hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])] = True
 
     def is_valid(self, possible_coordinates):
+        """
+        list(tuple(int, int)) -> bool
+
+        Checks whether ship is situated correctly.
+        """
         for line in range(self.bow[0], self.bow[0] + self.length[0]):
             for column in range(self.bow[1], self.bow[1] + self.length[1]):
                 if (line, column) not in possible_coordinates:

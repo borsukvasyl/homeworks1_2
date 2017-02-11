@@ -3,11 +3,19 @@ import ship
 
 
 class Field(object):
+    """
+    Field description.
+    """
     def __init__(self):
         self.ships, self.field = generate_field()
         self.shoots = []
 
     def shoot_at(self, coordinates):
+        """
+        tuple(int, int) -> bool
+
+        Checks whether player shooted any ship.
+        """
         if self.field[coordinates[0]][coordinates[1]]:
             self.field[coordinates[0]][coordinates[1]].shoot_at(coordinates)
             self.shoots.append(coordinates)
@@ -17,10 +25,20 @@ class Field(object):
             return False
 
     def check_killed(self, coordinates):
+        """
+        tuple(int, int) -> True
+
+        Checks whether ship is killed in the given coordinates.
+        """
         if False not in self.field[coordinates[0]][coordinates[1]].hit:
             return True
 
     def field_without_ships(self):
+        """
+        None -> list(list(str))
+
+        Returns field with player`s shoots.
+        """
         field = [[" " for i in range(10)] for j in range(10)]
         for line in range(10):
             for column in range(10):
@@ -32,6 +50,11 @@ class Field(object):
         return field
 
     def field_with_ships(self):
+        """
+        None -> list(list(str))
+
+        Returns field with player`s ships.
+        """
         field = [[" " for i in range(10)] for j in range(10)]
         for line in range(10):
             for column in range(10):

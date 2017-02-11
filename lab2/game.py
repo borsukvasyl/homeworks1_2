@@ -2,15 +2,28 @@ import field, player
 
 
 class Game():
+    """
+    Game description.
+    """
     def __init__(self, name1, name2):
         self.fields = [field.Field(), field.Field()]
         self.players = [player.Player(name1), player.Player(name2)]
         self.current_player = 0
 
     def read_position(self, index, message):
+        """
+        int, str -> int, int
+
+        Requests user to enter coordinates.
+        """
         return self.players[index].read_position(message)
 
     def print_fields(self, index):
+        """
+        None -> None
+
+        Prints user and their opponent fields.
+        """
         def print_line(line_list, line):
             if line < 9:
                 res = "| " + str(line + 1) + " |"

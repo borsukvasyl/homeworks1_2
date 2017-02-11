@@ -24,15 +24,6 @@ class Field(object):
             self.shoots.append(coordinates)
             return False
 
-    def check_killed(self, coordinates):
-        """
-        tuple(int, int) -> True
-
-        Checks whether ship is killed in the given coordinates.
-        """
-        if False not in self.field[coordinates[0]][coordinates[1]].hit:
-            return True
-
     def field_without_ships(self):
         """
         None -> list(list(str))
@@ -63,6 +54,16 @@ class Field(object):
                 elif (line, column) in self.shoots:
                     field[line][column] = "."
         return field
+
+    def check_ship_killed(self, coordinates):
+        """
+        tuple(int, int) -> True
+
+        Checks whether ship is killed in the given coordinates.
+        """
+        if False not in self.field[coordinates[0]][coordinates[1]].hit:
+            return True
+
 
 def generate_field():
     """

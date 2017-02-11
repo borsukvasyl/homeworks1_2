@@ -16,12 +16,19 @@ class Field(object):
             self.shoots.append(coordinates)
             return False
 
+    def check_killed(self, coordinates):
+        if False not in self.field[coordinates[0]][coordinates[1]].hit:
+            return True
+
     def field_without_ships(self):
         field = [[" " for i in range(10)] for j in range(10)]
         for line in range(10):
             for column in range(10):
                 if (line, column) in self.shoots:
-                    field[line][column] = "."
+                    if self.field[line][column]:
+                        field[line][column] = "X"
+                    else:
+                        field[line][column] = "."
         return field
 
     def field_with_ships(self):
@@ -65,20 +72,3 @@ def generate_field():
                         field[line][column] = new_ship
                 break
     return ships, field
-
-
-'''field = Field()
-print(field.field)'''
-
-'''field = Field()
-for i in range(len(field.field)):
-    for j in range(len(field.field[i])):
-        if field.field[i][j]:
-            print("*", end="")
-        else:
-            print(" ", end="")
-    print()'''
-
-'''field = Field()
-print(field.field)
-print(field.field_without_ships())'''

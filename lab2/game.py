@@ -7,8 +7,8 @@ class Game():
         self.players = [player.Player(name1), player.Player(name2)]
         self.current_player = 0
 
-    def read_position(self, index):
-        return self.players[index].read_position()
+    def read_position(self, index, message):
+        return self.players[index].read_position(message)
 
     def print_fields(self, index):
         def print_line(line_list, line):
@@ -33,7 +33,3 @@ class Game():
             field_str += print_line(field1[line], line) + " " * 5 + print_line(field2[line], line) + "\n"
             field_str += "+---" * 11 + "+" + " " * 5 + "+---" * 11 + "+\n"
         print(field_str, end="")
-
-game = Game("Vasiko", "Vasyl")
-game.print_fields(0)
-game.print_fields(1)

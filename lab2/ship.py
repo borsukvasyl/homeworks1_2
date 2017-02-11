@@ -33,3 +33,8 @@ class Ship():
                 for j in [-1, 0, 1]:
                     area.add((coordinates[0] + i, coordinates[1] + j))
         return area
+
+    def print_point(self, coordinates):
+        if self.hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])]:
+            return "X"
+        return "*"

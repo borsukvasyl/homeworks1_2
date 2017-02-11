@@ -16,6 +16,24 @@ class Field(object):
             self.shoots.append(coordinates)
             return False
 
+    def field_without_ships(self):
+        field = [[" " for i in range(10)] for j in range(10)]
+        for line in range(10):
+            for column in range(10):
+                if (line, column) in self.shoots:
+                    field[line][column] = "."
+        return field
+
+    def field_with_ships(self):
+        field = [[" " for i in range(10)] for j in range(10)]
+        for line in range(10):
+            for column in range(10):
+                if self.field[line][column]:
+                    field[line][column] = self.field[line][column].print_point((line, column))
+                elif (line, column) in self.shoots:
+                    field[line][column] = "."
+        return field
+
 def generate_field():
     """
     None -> list(list(str))
@@ -63,5 +81,4 @@ for i in range(len(field.field)):
 
 '''field = Field()
 print(field.field)
-print(field.shoot_at((2, 2)))
-print(field.field[2][2].hit)'''
+print(field.field_without_ships())'''

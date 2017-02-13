@@ -28,23 +28,24 @@ name1, name2 = input("Enter your name: "), input("Enter your name: ")
 battle_ships = game.Game(name1, name2)
 os.system("CLS")
 
-next_message = "Enter coordinates: "
+landed, killed = False, False
 while True:
     current_player = battle_ships.current_player
     if current_player:
         next_player = 0
     else:
         next_player = 1
+
     battle_ships.print_fields(current_player)
-    coordinates = battle_ships.read_position(current_player, next_message)
+    coordinates = battle_ships.read_position(current_player, landed, killed)
     landed = battle_ships.fields[next_player].shoot_at(coordinates)
     if landed:
-        if battle_ships.fields[next_player].check_ship_killed(coordinates):
-            next_message = "Killed!!! Enter next coordinates: "
-        else:
-            next_message = "Landed! Enter next coordinates: "
+        killed = battle_ships.fields[next_player].check_ship_killed(coordinates)
     else:
-        next_message = "Enter coordinates: "
+        killed = False
+    os.system("CLS")
+
     if not landed:
         battle_ships.current_player = next_player
-    os.system("CLS")
+        input("Press something: ")
+        os.system("CLS")

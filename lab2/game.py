@@ -10,17 +10,17 @@ class Game():
         self.players = [player.Player(name1), player.Player(name2)]
         self.current_player = 0
 
-    def read_position(self, index, message):
+    def read_position(self, index, landed, killed):
         """
-        int, str -> int, int
+        int, bool, bool -> int, int
 
         Requests user to enter coordinates.
         """
-        return self.players[index].read_position(message)
+        return self.players[index].read_position(landed, killed)
 
     def print_fields(self, index):
         """
-        None -> None
+        int -> None
 
         Prints user and their opponent fields.
         """

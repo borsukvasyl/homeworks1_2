@@ -23,13 +23,16 @@ class Game():
         else:
             message = ""
         while True:
-            coordinates =  self.players[index].read_position(message)
-            if coordinates not in self.fields[next_index].shoots:
-                return coordinates
-            else:
+            try:
+                coordinates =  self.players[index].read_position(message)
+                if coordinates not in self.fields[next_index].shoots:
+                    return coordinates
+                else:
+                    message = "Incorrect coordinates. "
+            except:
                 message = "Incorrect coordinates. "
 
-    def print_fields(self, index):
+    def print_fields(self, index, next_index):
         """
         int -> None
 
@@ -45,12 +48,11 @@ class Game():
             return res
 
         field1 = self.fields[index].field_with_ships()
-        if index == 0:
-            field2 = self.fields[index + 1].field_without_ships()
-        else:
-            field2 = self.fields[index - 1].field_without_ships()
+        field2 = self.fields[next_index].field_without_ships()
 
-        field_str =  "+---" * 11 + "+" + " " * 5 +  "+---" * 11 + "+\n"
+        field_str = "\n" + " " * 5 + self.players[index]._name + ":" +\
+                    " " * (49 - len(self.players[index]._name)) + self.players[next_index]._name + ":\n"
+        field_str +=  "+---" * 11 + "+" + " " * 5 +  "+---" * 11 + "+\n"
         field_str += print_line("ABCDEFGHIJ", -1) + " " * 5 + print_line("ABCDEFGHIJ", -1) + "\n"
         field_str += "+---" * 11 + "+" + " " * 5 + "+---" * 11 + "+\n"
         for line in range(10):

@@ -35,6 +35,12 @@ class Field(object):
             self.shoots |= self.field[coordinates[0]][coordinates[1]].covered_area()
             return True
 
+    def check_ships_killed(self):
+        for ship in self.ships:
+            if False in ship.hit:
+                return False
+        return True
+
     def field_without_ships(self):
         """
         None -> list(list(str))
@@ -73,7 +79,7 @@ def generate_field():
 
     Generates random field.
     """
-    ships = [[] for i in range(4)]
+    ships = []
     field = [[None for i in range(10)] for i in range(10)]
     number_of_ships = [i for i in range(1, 5)]
     possible_coordinates = [(i, j) for i in range(10) for j in range(10)]
@@ -92,7 +98,7 @@ def generate_field():
                     if coordinates in possible_coordinates:
                         possible_coordinates.remove(coordinates)
 
-                ships[4 - max(new_ship.length)].append(new_ship)
+                ships.append(new_ship)
                 for line in range(new_ship.bow[0], new_ship.bow[0] + new_ship.length[0]):
                     for column in range(new_ship.bow[1], new_ship.bow[1] + new_ship.length[1]):
                         field[line][column] = new_ship

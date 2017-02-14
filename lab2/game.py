@@ -10,13 +10,24 @@ class Game():
         self.players = [player.Player(name1), player.Player(name2)]
         self.current_player = 0
 
-    def read_position(self, index, landed, killed):
+    def read_position(self, index, next_index, landed, killed):
         """
-        int, bool, bool -> int, int
+        int, int, bool, bool -> int, int
 
         Requests user to enter coordinates.
         """
-        return self.players[index].read_position(landed, killed)
+        if killed:
+            message = "Killed!!!"
+        elif landed:
+            message = "Landed!"
+        else:
+            message = ""
+        while True:
+            coordinates =  self.players[index].read_position(message)
+            if coordinates not in self.fields[next_index].shoots:
+                return coordinates
+            else:
+                message = "Incorrect coordinates. "
 
     def print_fields(self, index):
         """

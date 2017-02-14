@@ -33,16 +33,15 @@ class Ship(object):
 
     def covered_area(self):
         """
-        tuple(int, int), tuple(int, int) -> list(tuple(int, int)), set(tuple(int, int))
+        tuple(int, int), tuple(int, int) -> set(tuple(int, int))
 
         Finds ship coordinates and area, which ship covers.
         """
         area = set()
-        for coordinates in\
-            [(self.bow[0] + i, self.bow[1] + j) for i in range(self.length[0]) for j in range(self.length[1])]:
-            for i in [-1, 0, 1]:
-                for j in [-1, 0, 1]:
-                    area.add((coordinates[0] + i, coordinates[1] + j))
+        for line in range(self.bow[0] - 1, self.bow[0] + self.length[0] + 1):
+            for column in range(self.bow[1] - 1, self.bow[1] + self.length[1] + 1):
+                if line >= 0 and line <= 9 and column >= 0 and column <= 9:
+                    area.add((line, column))
         return area
 
     def print_point(self, coordinates):

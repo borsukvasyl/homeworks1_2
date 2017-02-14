@@ -8,7 +8,7 @@ class Field(object):
     """
     def __init__(self):
         self.ships, self.field = generate_field()
-        self.shoots = []
+        self.shoots = set()
 
     def shoot_at(self, coordinates):
         """
@@ -18,11 +18,22 @@ class Field(object):
         """
         if self.field[coordinates[0]][coordinates[1]]:
             self.field[coordinates[0]][coordinates[1]].shoot_at(coordinates)
-            self.shoots.append(coordinates)
+            self.shoots.add(coordinates)
             return True
         else:
-            self.shoots.append(coordinates)
+            self.shoots.add(coordinates)
             return False
+
+    def check_ship_killed(self, coordinates):
+        """
+        tuple(int, int) -> True
+
+        Checks whether ship is killed in the given coordinates.
+        If yes, makes area around the ship as shooted.
+        """
+        if False not in self.field[coordinates[0]][coordinates[1]].hit:
+            self.shoots |= self.field[coordinates[0]][coordinates[1]].covered_area()
+            return True
 
     def field_without_ships(self):
         """
@@ -54,15 +65,6 @@ class Field(object):
                 elif (line, column) in self.shoots:
                     field[line][column] = "."
         return field
-
-    def check_ship_killed(self, coordinates):
-        """
-        tuple(int, int) -> True
-
-        Checks whether ship is killed in the given coordinates.
-        """
-        if False not in self.field[coordinates[0]][coordinates[1]].hit:
-            return True
 
 
 def generate_field():

@@ -37,7 +37,7 @@ while True:
         next_player = 1
 
     battle_ships.print_fields(current_player)
-    coordinates = battle_ships.read_position(current_player, landed, killed)
+    coordinates = battle_ships.read_position(current_player, next_player, landed, killed)
     landed = battle_ships.fields[next_player].shoot_at(coordinates)
     if landed:
         killed = battle_ships.fields[next_player].check_ship_killed(coordinates)

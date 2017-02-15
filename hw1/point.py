@@ -1,4 +1,7 @@
 class Point():
+    """
+    Represents a point in two-dimensional geometric coordinates.
+    """
     def __init__(self, x, y):
         self.x = x
         self.y = y

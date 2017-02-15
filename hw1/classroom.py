@@ -26,9 +26,10 @@ class Classroom():
     def __repr__(self):
         return "Classroom('" + self.number + "', " + str(self.capacity) + ", " + str(self.equipment) + ")"
 
-
+'''
 classroom_016 = Classroom('016', 80, ['PC', 'projector', 'mic'])
 classroom_007 = Classroom('007', 12, ['TV'])
 print(classroom_016.is_larger(classroom_007))
 print(classroom_016.equipment_differences(classroom_007))
 print([classroom_016])
+'''

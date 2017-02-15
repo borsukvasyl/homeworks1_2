@@ -3,7 +3,7 @@ import field, player
 
 class Game():
     """
-    Game description.
+    Represents Battleship game.
     """
     def __init__(self, name1, name2):
         self.fields = [field.Field(), field.Field()]
@@ -25,7 +25,8 @@ class Game():
         while True:
             try:
                 coordinates =  self.players[index].read_position(message)
-                if coordinates not in self.fields[next_index].shoots:
+                if coordinates not in self.fields[next_index].shoots or\
+                        coordinates[0] not in range(10):
                     return coordinates
                 else:
                     message = "Incorrect coordinates. "

@@ -1,6 +1,6 @@
 class Player(object):
     """
-    Player description.
+    Represents player in Battleship game.
     """
     def __init__(self, name):
         self._name = name

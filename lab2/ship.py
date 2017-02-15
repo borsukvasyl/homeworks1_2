@@ -1,6 +1,6 @@
 class Ship(object):
     """
-    Ship description.
+    Represents ship for Battleship game.
     """
     def __init__(self, coordinates, length):
         self.bow = coordinates
@@ -45,6 +45,11 @@ class Ship(object):
         return area
 
     def print_point(self, coordinates):
+        """
+        tuple(int, int) -> str
+
+        Returns ship view in the field.
+        """
         if self.hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])]:
             return "X"
         return "*"

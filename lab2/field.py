@@ -4,7 +4,7 @@ import ship
 
 class Field(object):
     """
-    Field description.
+    Represents field for Battleship game.
     """
     def __init__(self):
         self.ships, self.field = generate_field()

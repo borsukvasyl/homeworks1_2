@@ -8,8 +8,8 @@ class Ship(object):
             self.horizontal = True
         else:
             self.horizontal = False
-        self.length = length
-        self.hit = [False for i in range(max(length))]
+        self._length = length
+        self._hit = [False for i in range(max(length))]
 
     def shoot_at(self, coordinates):
         """
@@ -17,7 +17,7 @@ class Ship(object):
 
         Makes ship hitted in the given coordinates.
         """
-        self.hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])] = True
+        self._hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])] = True
 
     def is_valid(self, possible_coordinates):
         """
@@ -25,8 +25,8 @@ class Ship(object):
 
         Checks whether ship is situated correctly.
         """
-        for line in range(self.bow[0], self.bow[0] + self.length[0]):
-            for column in range(self.bow[1], self.bow[1] + self.length[1]):
+        for line in range(self.bow[0], self.bow[0] + self._length[0]):
+            for column in range(self.bow[1], self.bow[1] + self._length[1]):
                 if (line, column) not in possible_coordinates:
                     return False
         return True
@@ -38,8 +38,8 @@ class Ship(object):
         Finds ship coordinates and area, which ship covers.
         """
         area = set()
-        for line in range(self.bow[0] - 1, self.bow[0] + self.length[0] + 1):
-            for column in range(self.bow[1] - 1, self.bow[1] + self.length[1] + 1):
+        for line in range(self.bow[0] - 1, self.bow[0] + self._length[0] + 1):
+            for column in range(self.bow[1] - 1, self.bow[1] + self._length[1] + 1):
                 if line >= 0 and line <= 9 and column >= 0 and column <= 9:
                     area.add((line, column))
         return area
@@ -50,6 +50,6 @@ class Ship(object):
 
         Returns ship view in the field.
         """
-        if self.hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])]:
+        if self._hit[abs(self.bow[0] - coordinates[0]) + abs(self.bow[1] - coordinates[1])]:
             return "X"
         return "*"

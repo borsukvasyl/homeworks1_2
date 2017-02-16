@@ -32,7 +32,7 @@ while True:
 
     landed, killed, winner = False, False, False
     while True:
-        current_player = battle_ships.current_player
+        current_player = battle_ships._current_player
         if current_player:
             next_player = 0
         else:
@@ -40,21 +40,22 @@ while True:
 
         battle_ships.print_fields(current_player, next_player)
         coordinates = battle_ships.read_position(current_player, next_player, landed, killed)
-        landed = battle_ships.fields[next_player].shoot_at(coordinates)
+        landed = battle_ships._fields[next_player].shoot_at(coordinates)
         if landed:
-            killed = battle_ships.fields[next_player].check_ship_killed(coordinates)
+            killed = battle_ships._fields[next_player].check_ship_killed(coordinates)
             if killed:
-                winner = battle_ships.fields[next_player].check_ships_killed()
+                winner = battle_ships._fields[next_player].check_ships_killed()
         else:
             killed = False
         os.system("CLS")
 
         if not landed:
-            input(battle_ships.players[next_player]._name + " press something: ")
-            battle_ships.current_player = next_player
+            input(battle_ships._players[next_player]._name + " press something: ")
+            battle_ships._current_player = next_player
             os.system("CLS")
         if winner:
-            print(battle_ships.players[current_player]._name + " won!!!")
+            print(battle_ships._players[current_player]._name + " won!!!")
             break
     if not input("Press something to play again: "):
         break
+    os.system("CLS")

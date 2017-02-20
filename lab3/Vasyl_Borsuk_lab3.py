@@ -2,9 +2,10 @@ class Property:
     """
     Represents property.
     """
-    def __init__(self, square_feet='', beds='',
+    def __init__(self, name="", square_feet='', beds='',
                  baths='', **kwargs):
         super().__init__(**kwargs)
+        self.name = name
         self.square_feet = square_feet
         self.num_bedrooms = beds
         self.num_baths = baths
@@ -281,6 +282,23 @@ class Agent:
         for property in self.property_list:
             property.display()
 
+    def find_properties_by_key(self, key, value, percentage=0.25):
+        """
+        Find all properties, which key match to value.
+        :param key: keyword
+        :param value: value of keyword
+        :param percentage: +- percentage of value
+        :return: list of properties
+        """
+        properties = []
+        for property in self.property_list:
+            if value.isalpha() and eval("property." + key) == value:
+                properties.append(property)
+            elif int(eval("property." + key)) >= int(value) * (1 - float(percentage)) and\
+               int(eval("property." + key)) <= int(value) * (1 + float(percentage)):
+                properties.append(property)
+        return properties
+
     def add_property(self):
         """
         Create and add new property to all properties.
@@ -296,3 +314,25 @@ class Agent:
         property_class = self.type_map[(property_type, payment_type)]
         init_args = property_class.prompt_init()
         self.property_list.append(property_class(**init_args))
+
+    def remove_properties_by_key(self, key, value, percentage):
+        """
+        Remove all properties, which key match to value.
+        :param key: keyword
+        :param value: value of keyword
+        :param percentage: +- percentage of value
+        :return: None
+        """
+        for property in self.find_properties_by_key(key, value, percentage):
+            self.property_list.remove(property)
+
+    def display_properties_by_key(self, key, value, percentage=0):
+        """
+        Find and print all properties, which key match to value.
+        :param key: keyword
+        :param value: value of keyword
+        :param percentage: +- percentage of value
+        :return: None
+        """
+        for property in self.find_properties_by_key(key, value, percentage=percentage):
+            property.display()

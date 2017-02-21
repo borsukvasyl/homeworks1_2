@@ -141,7 +141,6 @@ class Rental:
     """
     def __init__(self, furnished='', utilities='',
                  rent='', **kwargs):
-        super().__init__(**kwargs)
         self.furnished = furnished
         self.rent = rent
         self.utilities = utilities
@@ -151,7 +150,6 @@ class Rental:
         Print rental info on the screen.
         :return: None
         """
-        super().display()
         print("RENTAL DETAILS")
         print("rent: {}".format(self.rent))
         print("estimated utilities: {}".format(self.utilities))
@@ -175,7 +173,6 @@ class Purchase:
     Represents purchase.
     """
     def __init__(self, price='', taxes='', **kwargs):
-        super().__init__(**kwargs)
         self.price = price
         self.taxes = taxes
 
@@ -184,7 +181,6 @@ class Purchase:
         Print purchase info on the screen.
         :return: None
         """
-        super().display()
         print("PURCHASE DETAILS")
         print("selling price: {}".format(self.price))
         print("estimated taxes: {}".format(self.taxes))
@@ -200,10 +196,19 @@ class Purchase:
     prompt_init = staticmethod(prompt_init)
 
 
-class HouseRental(Rental, House):
+class HouseRental(House):
     """
     Represents house for rental.
     """
+    def __init__(self, furnished='', utilities='',
+                 rent='', **kwargs):
+        super().__init__(**kwargs)
+        Rental.__init__(self, furnished, utilities, rent)
+
+    def display(self):
+        super().display()
+        Rental.display(self)
+
     def prompt_init():
         """
         Request user to enter house rental info.
@@ -215,10 +220,18 @@ class HouseRental(Rental, House):
     prompt_init = staticmethod(prompt_init)
 
 
-class HousePurchase(Purchase, House):
+class HousePurchase(House):
     """
     Represents house for purchase.
     """
+    def __init__(self, price='', taxes='', **kwargs):
+        super().__init__(**kwargs)
+        Purchase.__init__(self, price, taxes)
+
+    def display(self):
+        super().display()
+        Purchase.display(self)
+
     def prompt_init():
         """
         Request user to enter house purchase info.
@@ -230,10 +243,19 @@ class HousePurchase(Purchase, House):
     prompt_init = staticmethod(prompt_init)
 
 
-class ApartmentRental(Rental, Apartment):
+class ApartmentRental(Apartment):
     """
     Represents apartment for rental.
     """
+    def __init__(self, furnished='', utilities='',
+                 rent='', **kwargs):
+        super().__init__(**kwargs)
+        Rental.__init__(self, furnished, utilities, rent)
+
+    def display(self):
+        super().display()
+        Rental.display(self)
+
     def prompt_init():
         """
         Request user to enter apartment rental info.
@@ -245,10 +267,18 @@ class ApartmentRental(Rental, Apartment):
     prompt_init = staticmethod(prompt_init)
 
 
-class ApartmentPurchase(Purchase, Apartment):
+class ApartmentPurchase(Apartment):
     """
     Represents apartment for purchase.
     """
+    def __init__(self, price='', taxes='', **kwargs):
+        super().__init__(**kwargs)
+        Purchase.__init__(self, price, taxes)
+
+    def display(self):
+        super().display()
+        Purchase.display(self)
+
     def prompt_init():
         """
         Request user to enter apartment purchase info.

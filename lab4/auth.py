@@ -74,6 +74,10 @@ class Authenticator:
             self.logged_in_user = username
 
     def logout(self):
+        """
+        Logout user.
+        :return: None
+        """
         self.logged_in_user = None
 
 
@@ -149,81 +153,3 @@ class AlreadyLoggedIn(AuthException):
 
 class PermissionError(Exception):
     pass
-
-
-class BattleshipAuth():
-    def __init__(self, authorizor):
-        """
-        authenticator = Authenticator()
-        authorizor = Authorizor(authenticator)
-        a = BattleshipAuth(authorizor)
-        :param authorizor: Authorizor object
-        """
-        self.__authorizor = authorizor
-        self.__authorizor.authenticator.add_user("VasikoBestProgrammer", "11111111")
-        self.__authorizor.add_permission("admin")
-        self.__authorizor.permit_user("admin", "VasikoBestProgrammer")
-        self.__authorizor.add_permission("play")
-        self.__authorizor.permit_user("play", "VasikoBestProgrammer")
-
-    def login(self, username, password):
-        self.__authorizor.authenticator.login(username, password)
-
-    def logout(self):
-        self.__authorizor.authenticator.logout()
-
-    def add_user(self, username, password):
-        if self.__authorizor.authenticator.logged_in_user in\
-                self.__authorizor.permissions["admin"]:
-            self.__authorizor.authenticator.add_user(username, password)
-        else:
-            raise NotPermittedError(self.__authorizor.authenticator.logged_in_user)
-
-    def permit_user(self, permission, username):
-        if self.__authorizor.authenticator.logged_in_user in\
-            self.__authorizor.permissions["admin"]:
-            self.__authorizor.permit_user(permission, username)
-        else:
-            raise NotPermittedError(self.__authorizor.authenticator.logged_in_user)
-
-    def play_battleship(self):
-        if self.__authorizor.authenticator.logged_in_user in\
-            self.__authorizor.permissions["play"]:
-            print("(\/)_(^-^)_(\/)")
-        else:
-            raise NotPermittedError(self.__authorizor.authenticator.logged_in_user)
-
-    def menu(self):
-        while True:
-            command = input("Enter command: ")
-            if command == "help()":
-                print("login(username, password)            - login\n"
-                      "logout()                             - logout\n"
-                      "add_user(username, password)         - add user\n"
-                      "permit_user(permission, username     - permit user\n"
-                      "play_battleship()                    - play game\n")
-            else:
-                try:
-                    eval("self.{}".format(command))
-                except AttributeError:
-                    print("No such command!")
-                except UsernameAlreadyExists:
-                    print("Sorry, that username already exist")
-                except PasswordTooShort:
-                    print("Sorry, that password is too short")
-                except InvalidUsername:
-                    print("Sorry, that username does not exist")
-                except InvalidPassword:
-                    print("Sorry, incorrect password")
-                except NotPermittedError:
-                    print("Sorry, you have not permission")
-                except AlreadyLoggedIn:
-                    print("Sorry, you are already logged in")
-                except PermissionError:
-                    print("Sorry, permission already exist")
-
-
-authenticator = Authenticator()
-authorizor = Authorizor(authenticator)
-a = BattleshipAuth(authorizor)
-a.menu()

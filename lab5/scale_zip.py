@@ -1,15 +1,19 @@
-from zip_processor import ZipProcessor
-import sys
 from PIL import Image
 
-class ScaleZip(ZipProcessor):
 
-    def process_files(self):
-        '''Scale each image in the directory to 640x480'''
-        for filename in self.temp_directory.iterdir():
+class ScaleZip:
+    """
+    Scale images if directory.
+    """
+    def process_files(self, temp_directory, n, m):
+        """
+        Scale each image in the directory to n*m size
+        :param temp_directory: directory path
+        :param n: horizontal size
+        :param m: vertical sie
+        :return: None
+        """
+        for filename in temp_directory.iterdir():
             im = Image.open(str(filename))
-            scaled = im.resize((640, 480))
+            scaled = im.resize((n, m))
             scaled.save(str(filename))
-
-if __name__ == "__main__":
-    ScaleZip(*sys.argv[1:4]).process_zip()

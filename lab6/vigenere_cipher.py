@@ -1,12 +1,26 @@
 class VigenereCipher:
+    """
+    Encode and decode text by keyword.
+    """
     def __init__(self, keyword):
         self.keyword = keyword
 
     def extend_keyword(self, number):
+        """
+        Generates str of repeated keywords,
+        which length is equal to number.
+        :param number: length
+        :return: str
+        """
         repeats = number // len(self.keyword) + 1
         return (self.keyword * repeats)[:number]
 
     def encode(self, plaintext):
+        """
+        Encode text by keyword.
+        :param plaintext: text
+        :return: encoded text
+        """
         plaintext = plaintext.replace(" ", "").upper()
         cipher = []
         keyword = self.extend_keyword(len(plaintext))
@@ -15,6 +29,11 @@ class VigenereCipher:
         return "".join(cipher)
 
     def decode(self, ciphertext):
+        """
+        Decode ciphered text by keyword.
+        :param ciphertext: text
+        :return: decoded text
+        """
         plain = []
         keyword = self.extend_keyword(len(ciphertext))
         for p, k in zip(ciphertext, keyword):
@@ -23,6 +42,12 @@ class VigenereCipher:
 
     @staticmethod
     def combine_character(plain, keyword):
+        """
+        Combines character with keyword.
+        :param plain: char
+        :param keyword: keyword char
+        :return: combined char
+        """
         plain = plain.upper()
         keyword = keyword.upper()
         plain_num = ord(plain) - ord('A')
@@ -31,6 +56,12 @@ class VigenereCipher:
 
     @staticmethod
     def separate_character(cypher, keyword):
+        """
+        Separate character from keyword.
+        :param cypher: char
+        :param keyword: keyword char
+        :return: separated char
+        """
         cypher = cypher.upper()
         keyword = keyword.upper()
         cypher_num = ord(cypher) - ord('A')

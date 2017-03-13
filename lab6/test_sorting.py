@@ -3,6 +3,9 @@ import unittest
 
 
 class TestIsSorted(unittest.TestCase):
+    """
+    Test for is_sorted function.
+    """
     def test_list_with_float(self):
         arg = [1, 2.1, 3]
         expected = False
@@ -28,7 +31,7 @@ class TestIsSorted(unittest.TestCase):
         expected = False
         assert is_sorted(arg) == expected
 
-    def test_list_with_same_element(self):
+    def test_list_with_same_elements(self):
         arg = [1, 2, 2, 3, 3]
         expected = True
         assert is_sorted(arg) == expected

@@ -3,6 +3,14 @@ import unittest
 
 
 class TestAllPrefixes(unittest.TestCase):
+    """
+    Test for all_prefixes function.
+    """
+    def test_empty_word(self):
+        arg = ""
+        expected = set()
+        assert all_prefixes(arg) == expected
+
     def test_word_with_one_letter(self):
         arg = "a"
         expected = {"a"}

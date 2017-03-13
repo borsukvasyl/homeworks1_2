@@ -1,4 +1,9 @@
 def is_sorted(lst):
+    """
+    Checks whether list contains of sorted integers.
+    :param lst: list of numbers
+    :return: True if list is sorted, False otherwise
+    """
     for n in range(len(lst)):
         if type(lst[n]) != int:
             return False

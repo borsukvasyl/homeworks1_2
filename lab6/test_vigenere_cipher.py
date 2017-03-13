@@ -3,6 +3,9 @@ import unittest
 
 
 class TestVigenereCipher(unittest.TestCase):
+    """
+    Test for VigenereCipher class.
+    """
     def test_encode(self):
         cipher = VigenereCipher("TRAIN")
         encoded = cipher.encode("ENCODEDINPYTHON")
